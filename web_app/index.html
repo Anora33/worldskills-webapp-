@@ -16,7 +16,6 @@
         }
         .container { max-width: 420px; margin: 0 auto; }
         
-        /* Header */
         .header {
             text-align: center;
             padding: 24px 16px;
@@ -27,7 +26,6 @@
         .header h1 { font-size: 28px; margin-bottom: 8px; }
         .header p { font-size: 14px; opacity: 0.8; }
         
-        /* Cards */
         .card {
             background: var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.95));
             color: var(--tg-theme-hint-color, #333);
@@ -37,7 +35,6 @@
         }
         .card h2 { font-size: 20px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #667eea; }
         
-        /* User Card */
         .user-card { text-align: center; }
         .avatar {
             width: 80px;
@@ -63,7 +60,6 @@
             font-size: 16px;
         }
         
-        /* Menu */
         .menu-item {
             padding: 16px;
             margin-bottom: 8px;
@@ -81,11 +77,9 @@
         .menu-item:active { transform: scale(0.98); opacity: 0.8; }
         .menu-icon { font-size: 24px; width: 32px; text-align: center; }
         
-        /* Sections */
         .section { display: none; }
         .section.active { display: block; }
         
-        /* Form */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
         .form-group input, .form-group select, .form-group textarea {
@@ -102,7 +96,6 @@
         }
         .form-group textarea { min-height: 100px; resize: vertical; }
         
-        /* Buttons */
         .btn {
             width: 100%;
             padding: 16px;
@@ -120,7 +113,6 @@
         .btn-secondary { background: #6c757d; }
         .btn-success { background: #28a745; }
         
-        /* Info Rows */
         .info-row {
             padding: 12px;
             margin-bottom: 8px;
@@ -133,7 +125,6 @@
         .info-label { opacity: 0.7; }
         .info-value { font-weight: 600; }
         
-        /* WorldSkills Info */
         .ws-stat {
             text-align: center;
             padding: 20px;
@@ -145,7 +136,6 @@
         .ws-stat-number { font-size: 36px; font-weight: bold; margin-bottom: 8px; }
         .ws-stat-label { font-size: 14px; opacity: 0.9; }
         
-        /* Portfolio Items */
         .portfolio-item {
             padding: 16px;
             margin-bottom: 12px;
@@ -166,27 +156,6 @@
         }
         .portfolio-grade.pending { background: #ffc107; color: #333; }
         
-        /* Grade Selector */
-        .grade-selector {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .grade-btn {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .grade-btn.active { background: #667eea; color: white; }
-        .grade-btn:hover { background: #667eea; color: white; }
-        
-        /* Loading */
         .loading { text-align: center; padding: 60px 20px; }
         .loading-spinner {
             width: 40px;
@@ -199,7 +168,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* Back Button */
         .back-btn {
             width: 100%;
             padding: 16px;
@@ -213,42 +181,24 @@
             margin-top: 16px;
         }
         .back-btn:active { opacity: 0.8; }
-        
-        /* Success Message */
-        .success-message { text-align: center; padding: 40px 20px; }
-        .success-icon { font-size: 64px; margin-bottom: 16px; }
-        
-        /* Badge */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #667eea;
-            color: white;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-left: 8px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>🏆 WorldSkills</h1>
             <p>Professional Bot</p>
         </div>
         
-        <!-- Loading -->
         <div id="loading" class="loading">
             <div class="loading-spinner"></div>
             <p>Yuklanmoqda...</p>
         </div>
         
-        <!-- Content -->
         <div id="content" style="display: none;">
             
             <!-- Registration Section -->
-            <div id="registrationSection" class="section">
+            <div id="registrationSection" class="section active">
                 <div class="card">
                     <h2>📝 Ro'yxatdan O'tish</h2>
                     <div class="form-group">
@@ -270,7 +220,7 @@
                             <option value="💻 IT dasturiy ta'minot">💻 IT dasturiy ta'minot</option>
                             <option value="🎨 Grafik dizayn">🎨 Grafik dizayn</option>
                             <option value="🔧 Mexanika">🔧 Mexanika</option>
-                            <option value="👨‍🍳 Oshpazlik">👨‍🍳 Oshpazlik</option>
+                            <option value="👨‍🍳 Oshpazlik">👨‍ Oshpazlik</option>
                             <option value="⚡ Elektronika">⚡ Elektronika</option>
                             <option value="🏗️ Qurilish">🏗️ Qurilish</option>
                         </select>
@@ -279,9 +229,8 @@
                 </div>
             </div>
             
-            <!-- Main Menu (Registered Users) -->
+            <!-- Main Menu -->
             <div id="mainMenuSection" class="section">
-                <!-- User Card -->
                 <div class="card user-card">
                     <div class="avatar" id="avatar">👤</div>
                     <h2 id="userName">Foydalanuvchi</h2>
@@ -289,7 +238,6 @@
                     <div class="points">🏆 <span id="userPoints">0</span> ball</div>
                 </div>
                 
-                <!-- Menu -->
                 <div class="card">
                     <div class="menu-item" onclick="showSection('profileSection')">
                         <span class="menu-icon">👤</span>
@@ -368,12 +316,7 @@
                 <div class="card">
                     <h2>📋 Mening Ishlarim</h2>
                     <div id="portfolioList">
-                        <!-- Portfolio items will be loaded here -->
-                        <div class="portfolio-item">
-                            <h3>Veb-sayt loyihasi</h3>
-                            <p>HTML, CSS, JavaScript yordamida yaratilgan...</p>
-                            <span class="portfolio-grade pending">Kutilmoqda</span>
-                        </div>
+                        <p style="text-align: center; opacity: 0.6;">Hali ishlar yuborilmagan</p>
                     </div>
                 </div>
                 
@@ -455,27 +398,24 @@
             lastName: '',
             phone: '',
             competition: '',
-            points: 0,
+            points: 10,
             isRegistered: false,
             works: []
         };
         
-        // Load data
-        window.onload = async function() {
+        // Load data on page load
+        window.onload = function() {
+            console.log('Page loaded, Telegram WebApp:', tg);
+            
             try {
-                // Try to load from API (will be implemented later)
-                const response = await fetch(`/api/user/${userData.id}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    userData = { ...userData, ...data, isRegistered: true };
-                }
-            } catch (e) {
-                console.log('API not available, using local storage');
                 // Load from localStorage
                 const saved = localStorage.getItem('worldskills_user_' + userData.id);
                 if (saved) {
                     userData = JSON.parse(saved);
+                    console.log('Loaded user data:', userData);
                 }
+            } catch (e) {
+                console.error('Error loading data:', e);
             }
             
             document.getElementById('loading').style.display = 'none';
@@ -484,7 +424,7 @@
             if (userData.isRegistered) {
                 showMainMenu();
             } else {
-                document.getElementById('registrationSection').classList.add('active');
+                showSection('registrationSection');
             }
             
             tg.setHeaderColor(tg.themeParams.secondary_bg_color || '#667eea');
@@ -492,18 +432,24 @@
             tg.ready();
         };
         
+        // Registration function
         function registerUser() {
+            console.log('Register button clicked');
+            
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const competition = document.getElementById('competition').value;
             
+            console.log('Form data:', { firstName, lastName, phone, competition });
+            
+            // Validation
             if (!firstName || firstName.length < 2) {
-                tg.showAlert('Iltimos, ismingizni to\'g\'ri kiriting!');
+                tg.showAlert('Iltimos, ismingizni to\'g\'ri kiriting (kamida 2 ta belgi)!');
                 return;
             }
             if (!lastName || lastName.length < 2) {
-                tg.showAlert('Iltimos, familiyangizni to\'g\'ri kiriting!');
+                tg.showAlert('Iltimos, familiyangizni to\'g\'ri kiriting (kamida 2 ta belgi)!');
                 return;
             }
             if (!phone || phone.length < 9) {
@@ -515,8 +461,6 @@
                 return;
             }
             
-            tg.showProgress(true);
-            
             // Save user data
             userData.firstName = firstName;
             userData.lastName = lastName;
@@ -526,16 +470,20 @@
             userData.isRegistered = true;
             
             // Save to localStorage
-            localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
+            try {
+                localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
+                console.log('User data saved to localStorage');
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+            }
             
-            setTimeout(() => {
-                tg.showProgress(false);
-                tg.showAlert('✅ Tabriklaymiz! Ro\'yxatdan o\'tdingiz!');
-                showMainMenu();
-            }, 1000);
+            // Show success and main menu
+            tg.showAlert('✅ Tabriklaymiz! Ro\'yxatdan o\'tdingiz!\n\nIsm: ' + firstName + ' ' + lastName + '\nYo\'nalish: ' + competition + '\n\n+10 ball qo\'shildi!');
+            showMainMenu();
         }
         
         function showMainMenu() {
+            console.log('Showing main menu');
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('mainMenuSection').classList.add('active');
             
@@ -606,6 +554,7 @@
         }
         
         function showSection(sectionId) {
+            console.log('Showing section:', sectionId);
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             

@@ -27,15 +27,18 @@
         .header h1 { font-size: 28px; margin-bottom: 8px; }
         .header p { font-size: 14px; opacity: 0.8; }
         
-        /* User Card */
-        .user-card {
+        /* Cards */
+        .card {
             background: var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.95));
             color: var(--tg-theme-hint-color, #333);
             border-radius: 20px;
             padding: 24px;
             margin-bottom: 16px;
-            text-align: center;
         }
+        .card h2 { font-size: 20px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #667eea; }
+        
+        /* User Card */
+        .user-card { text-align: center; }
         .avatar {
             width: 80px;
             height: 80px;
@@ -48,7 +51,7 @@
             font-size: 36px;
             color: white;
         }
-        .user-card h2 { font-size: 22px; margin-bottom: 8px; }
+        .user-card h2 { font-size: 22px; margin-bottom: 8px; border: none; }
         .user-card p { font-size: 14px; opacity: 0.7; margin-bottom: 12px; }
         .points {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -61,13 +64,6 @@
         }
         
         /* Menu */
-        .menu {
-            background: var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.95));
-            color: var(--tg-theme-hint-color, #333);
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 16px;
-        }
         .menu-item {
             padding: 16px;
             margin-bottom: 8px;
@@ -86,15 +82,45 @@
         .menu-icon { font-size: 24px; width: 32px; text-align: center; }
         
         /* Sections */
-        .section {
-            background: var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.95));
-            color: var(--tg-theme-hint-color, #333);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 16px;
-            display: none;
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        /* Form */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
-        .section h2 { font-size: 20px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #667eea; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-bottom: 12px;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-secondary { background: #6c757d; }
+        .btn-success { background: #28a745; }
+        
+        /* Info Rows */
         .info-row {
             padding: 12px;
             margin-bottom: 8px;
@@ -102,15 +128,66 @@
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         .info-label { opacity: 0.7; }
         .info-value { font-weight: 600; }
         
-        /* Loading */
-        .loading {
+        /* WorldSkills Info */
+        .ws-stat {
             text-align: center;
-            padding: 60px 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
         }
+        .ws-stat-number { font-size: 36px; font-weight: bold; margin-bottom: 8px; }
+        .ws-stat-label { font-size: 14px; opacity: 0.9; }
+        
+        /* Portfolio Items */
+        .portfolio-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: var(--tg-theme-bg-color, #f8f9fa);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .portfolio-item h3 { font-size: 16px; margin-bottom: 8px; }
+        .portfolio-item p { font-size: 14px; opacity: 0.8; margin-bottom: 8px; }
+        .portfolio-grade {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .portfolio-grade.pending { background: #ffc107; color: #333; }
+        
+        /* Grade Selector */
+        .grade-selector {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .grade-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .grade-btn.active { background: #667eea; color: white; }
+        .grade-btn:hover { background: #667eea; color: white; }
+        
+        /* Loading */
+        .loading { text-align: center; padding: 60px 20px; }
         .loading-spinner {
             width: 40px;
             height: 40px;
@@ -137,15 +214,19 @@
         }
         .back-btn:active { opacity: 0.8; }
         
-        /* Competition Badge */
-        .competition-badge {
+        /* Success Message */
+        .success-message { text-align: center; padding: 40px 20px; }
+        .success-icon { font-size: 64px; margin-bottom: 16px; }
+        
+        /* Badge */
+        .badge {
             display: inline-block;
-            padding: 6px 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4px 12px;
+            background: #667eea;
             color: white;
             border-radius: 20px;
             font-size: 12px;
-            margin-top: 8px;
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -165,118 +246,201 @@
         
         <!-- Content -->
         <div id="content" style="display: none;">
-            <!-- User Card -->
-            <div class="user-card">
-                <div class="avatar" id="avatar">👤</div>
-                <h2 id="userName">Foydalanuvchi</h2>
-                <p id="userCompetition">Yo'nalish tanlanmagan</p>
-                <div class="points">
-                    🏆 <span id="userPoints">0</span> ball
+            
+            <!-- Registration Section -->
+            <div id="registrationSection" class="section">
+                <div class="card">
+                    <h2>📝 Ro'yxatdan O'tish</h2>
+                    <div class="form-group">
+                        <label for="firstName">Ism:</label>
+                        <input type="text" id="firstName" placeholder="Masalan: Ozoda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Familiya:</label>
+                        <input type="text" id="lastName" placeholder="Masalan: Karimova" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon raqam:</label>
+                        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="competition">Yo'nalishni tanlang:</label>
+                        <select id="competition" required>
+                            <option value="">Tanlang...</option>
+                            <option value="💻 IT dasturiy ta'minot">💻 IT dasturiy ta'minot</option>
+                            <option value="🎨 Grafik dizayn">🎨 Grafik dizayn</option>
+                            <option value="🔧 Mexanika">🔧 Mexanika</option>
+                            <option value="👨‍🍳 Oshpazlik">👨‍🍳 Oshpazlik</option>
+                            <option value="⚡ Elektronika">⚡ Elektronika</option>
+                            <option value="🏗️ Qurilish">🏗️ Qurilish</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="registerUser()">✅ Ro'yxatdan o'tish</button>
                 </div>
             </div>
             
-            <!-- Main Menu -->
-            <div class="menu" id="mainMenu">
-                <div class="menu-item" onclick="showSection('profile')">
-                    <span class="menu-icon">👤</span>
-                    <span>Profil</span>
+            <!-- Main Menu (Registered Users) -->
+            <div id="mainMenuSection" class="section">
+                <!-- User Card -->
+                <div class="card user-card">
+                    <div class="avatar" id="avatar">👤</div>
+                    <h2 id="userName">Foydalanuvchi</h2>
+                    <p id="userCompetition">Yo'nalish tanlanmagan</p>
+                    <div class="points">🏆 <span id="userPoints">0</span> ball</div>
                 </div>
-                <div class="menu-item" onclick="showSection('schedule')">
-                    <span class="menu-icon">📅</span>
-                    <span>Jadval</span>
-                </div>
-                <div class="menu-item" onclick="showSection('stats')">
-                    <span class="menu-icon">📊</span>
-                    <span>Statistika</span>
-                </div>
-                <div class="menu-item" onclick="showSection('rating')">
-                    <span class="menu-icon">🏆</span>
-                    <span>Reyting</span>
-                </div>
-                <div class="menu-item" onclick="tg.close()">
-                    <span class="menu-icon">❌</span>
-                    <span>Yopish</span>
+                
+                <!-- Menu -->
+                <div class="card">
+                    <div class="menu-item" onclick="showSection('profileSection')">
+                        <span class="menu-icon">👤</span>
+                        <span>Mening profilim</span>
+                    </div>
+                    <div class="menu-item" onclick="showSection('portfolioSection')">
+                        <span class="menu-icon">📸</span>
+                        <span>Mening ishlarim</span>
+                    </div>
+                    <div class="menu-item" onclick="showSection('worldskillsSection')">
+                        <span class="menu-icon">🏆</span>
+                        <span>WorldSkills haqida</span>
+                    </div>
+                    <div class="menu-item" onclick="showSection('statsSection')">
+                        <span class="menu-icon">📊</span>
+                        <span>Statistika</span>
+                    </div>
+                    <div class="menu-item" onclick="tg.close()">
+                        <span class="menu-icon">❌</span>
+                        <span>Yopish</span>
+                    </div>
                 </div>
             </div>
             
             <!-- Profile Section -->
             <div id="profileSection" class="section">
-                <h2>👤 Mening Profilim</h2>
-                <div class="info-row">
-                    <span class="info-label">Ism</span>
-                    <span class="info-value" id="profileName">-</span>
+                <div class="card">
+                    <h2>👤 Mening Profilim</h2>
+                    <div class="info-row">
+                        <span class="info-label">Ism</span>
+                        <span class="info-value" id="profileName">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Familiya</span>
+                        <span class="info-value" id="profileLastName">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Telefon</span>
+                        <span class="info-value" id="profilePhone">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Telegram ID</span>
+                        <span class="info-value" id="profileId">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Yo'nalish</span>
+                        <span class="info-value" id="profileCompetition">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ballar</span>
+                        <span class="info-value" id="profilePoints">0</span>
+                    </div>
+                    <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Telegram ID</span>
-                    <span class="info-value" id="profileId">-</span>
+            </div>
+            
+            <!-- Portfolio Section -->
+            <div id="portfolioSection" class="section">
+                <div class="card">
+                    <h2>📸 Ish Yuborish</h2>
+                    <div class="form-group">
+                        <label for="workTitle">Ish nomi:</label>
+                        <input type="text" id="workTitle" placeholder="Masalan: Veb-sayt loyihasi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workDescription">Tavsif:</label>
+                        <textarea id="workDescription" placeholder="Ishingiz haqida qisqacha ma'lumot..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="workFile">Fayl yuklash (foto/video):</label>
+                        <input type="file" id="workFile" accept="image/*,video/*">
+                    </div>
+                    <button class="btn" onclick="submitWork()">📤 Yuborish</button>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Yo'nalish</span>
-                    <span class="info-value" id="profileCompetition">-</span>
+                
+                <div class="card">
+                    <h2>📋 Mening Ishlarim</h2>
+                    <div id="portfolioList">
+                        <!-- Portfolio items will be loaded here -->
+                        <div class="portfolio-item">
+                            <h3>Veb-sayt loyihasi</h3>
+                            <p>HTML, CSS, JavaScript yordamida yaratilgan...</p>
+                            <span class="portfolio-grade pending">Kutilmoqda</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Ballar</span>
-                    <span class="info-value" id="profilePoints">0</span>
-                </div>
+                
                 <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
             </div>
             
-            <!-- Schedule Section -->
-            <div id="scheduleSection" class="section">
-                <h2>📅 Musobaqa Jadvali</h2>
-                <div class="info-row">
-                    <span class="info-label">09:00 - 10:00</span>
-                    <span class="info-value">Ro'yxatdan o'tish</span>
+            <!-- WorldSkills Info Section -->
+            <div id="worldskillsSection" class="section">
+                <div class="ws-stat">
+                    <div class="ws-stat-number">1950</div>
+                    <div class="ws-stat-label">Tashkil etilgan yil</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">10:00 - 13:00</span>
-                    <span class="info-value">Asosiy bosqich</span>
+                
+                <div class="ws-stat">
+                    <div class="ws-stat-number">80+</div>
+                    <div class="ws-stat-label">Mamlakatlar</div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">13:00 - 14:00</span>
-                    <span class="info-value">Tushlik</span>
+                
+                <div class="card">
+                    <h2>🏆 WorldSkills haqida</h2>
+                    <p style="margin-bottom: 12px;"><b>WorldSkills International</b> - dunyodagi eng yirik professional mahorat musobaqasi.</p>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Tashkil etilgan:</span>
+                        <span class="info-value">1950 yil</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ishtirokchi davlatlar:</span>
+                        <span class="info-value">80+ davlat</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Yo'nalishlar:</span>
+                        <span class="info-value">60+ kompetensiya</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Yosh chegarasi:</span>
+                        <span class="info-value">22 yoshgacha</span>
+                    </div>
+                    
+                    <p style="margin-top: 16px;"><b>Maqsad:</b> Yoshlarning professional ko'nikmalarini rivojlantirish va dunyo miqyosida tan olish.</p>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">14:00 - 17:00</span>
-                    <span class="info-value">Yakuniy bosqich</span>
-                </div>
+                
                 <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
             </div>
             
             <!-- Stats Section -->
             <div id="statsSection" class="section">
-                <h2>📊 Mening Statistikam</h2>
-                <div class="info-row">
-                    <span class="info-label">Jami ballar</span>
-                    <span class="info-value" id="statsPoints">0</span>
+                <div class="card">
+                    <h2>📊 Mening Statistikam</h2>
+                    <div class="info-row">
+                        <span class="info-label">Jami ballar</span>
+                        <span class="info-value" id="statsPoints">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Yuborilgan ishlar</span>
+                        <span class="info-value" id="statsWorks">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Baholangan ishlar</span>
+                        <span class="info-value" id="statsGraded">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">O'rtacha baho</span>
+                        <span class="info-value" id="statsAvgGrade">-</span>
+                    </div>
+                    <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">O'rin</span>
-                    <span class="info-value" id="statsRank">-</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Faollik</span>
-                    <span class="info-value" id="statsActivity">-</span>
-                </div>
-                <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
-            </div>
-            
-            <!-- Rating Section -->
-            <div id="ratingSection" class="section">
-                <h2>🏆 Reyting Jadvali</h2>
-                <div class="info-row">
-                    <span class="info-label">🥇 1-o'rin</span>
-                    <span class="info-value">150 ball</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">🥈 2-o'rin</span>
-                    <span class="info-value">145 ball</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">🥉 3-o'rin</span>
-                    <span class="info-value">140 ball</span>
-                </div>
-                <button class="back-btn" onclick="backToMenu()">🔙 Ortga</button>
             </div>
         </div>
     </div>
@@ -287,78 +451,176 @@
         
         let userData = {
             id: tg.initDataUnsafe?.user?.id || 0,
-            name: tg.initDataUnsafe?.user?.first_name || 'Foydalanuvchi',
-            username: tg.initDataUnsafe?.user?.username || '',
+            firstName: '',
+            lastName: '',
+            phone: '',
             competition: '',
             points: 0,
-            language: 'uz'
+            isRegistered: false,
+            works: []
         };
         
-        // Yuklash
+        // Load data
         window.onload = async function() {
             try {
-                // API dan ma'lumot olish (agar backend bo'lsa)
+                // Try to load from API (will be implemented later)
                 const response = await fetch(`/api/user/${userData.id}`);
                 if (response.ok) {
                     const data = await response.json();
-                    userData.competition = data.competition || "Yo'nalish tanlanmagan";
-                    userData.points = data.points || 0;
-                    userData.language = data.language || 'uz';
+                    userData = { ...userData, ...data, isRegistered: true };
                 }
             } catch (e) {
-                console.log('API mavjud emas, default qiymatlar ishlatiladi');
+                console.log('API not available, using local storage');
+                // Load from localStorage
+                const saved = localStorage.getItem('worldskills_user_' + userData.id);
+                if (saved) {
+                    userData = JSON.parse(saved);
+                }
             }
             
-            // UI ni yangilash
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-            document.getElementById('userName').textContent = userData.name;
-            document.getElementById('userCompetition').textContent = userData.competition;
-            document.getElementById('userPoints').textContent = userData.points;
             
-            // Profil ma'lumotlari
-            document.getElementById('profileName').textContent = userData.name;
-            document.getElementById('profileId').textContent = userData.id;
-            document.getElementById('profileCompetition').textContent = userData.competition;
-            document.getElementById('profilePoints').textContent = userData.points;
+            if (userData.isRegistered) {
+                showMainMenu();
+            } else {
+                document.getElementById('registrationSection').classList.add('active');
+            }
             
-            // Statistika
-            document.getElementById('statsPoints').textContent = userData.points;
-            document.getElementById('statsRank').textContent = userData.points > 100 ? 'Top 10' : (userData.points > 50 ? 'Top 50' : '-');
-            document.getElementById('statsActivity').textContent = userData.points > 0 ? 'Faol' : 'Yangi';
-            
-            // Telegram theme
             tg.setHeaderColor(tg.themeParams.secondary_bg_color || '#667eea');
             tg.setBackgroundColor(tg.themeParams.bg_color || '#667eea');
             tg.ready();
         };
         
-        function showSection(sectionName) {
-            // Barcha sectionlarni yashirish
-            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            document.getElementById('mainMenu').style.display = 'none';
+        function registerUser() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const competition = document.getElementById('competition').value;
             
-            // Tanlangan sectionni ko'rsatish
-            const section = document.getElementById(sectionName + 'Section');
-            if (section) {
-                section.style.display = 'block';
+            if (!firstName || firstName.length < 2) {
+                tg.showAlert('Iltimos, ismingizni to\'g\'ri kiriting!');
+                return;
+            }
+            if (!lastName || lastName.length < 2) {
+                tg.showAlert('Iltimos, familiyangizni to\'g\'ri kiriting!');
+                return;
+            }
+            if (!phone || phone.length < 9) {
+                tg.showAlert('Iltimos, telefon raqamingizni to\'g\'ri kiriting!');
+                return;
+            }
+            if (!competition) {
+                tg.showAlert('Iltimos, yo\'nalishni tanlang!');
+                return;
             }
             
-            // Haptic feedback
+            tg.showProgress(true);
+            
+            // Save user data
+            userData.firstName = firstName;
+            userData.lastName = lastName;
+            userData.phone = phone;
+            userData.competition = competition;
+            userData.points = 10;
+            userData.isRegistered = true;
+            
+            // Save to localStorage
+            localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
+            
+            setTimeout(() => {
+                tg.showProgress(false);
+                tg.showAlert('✅ Tabriklaymiz! Ro\'yxatdan o\'tdingiz!');
+                showMainMenu();
+            }, 1000);
+        }
+        
+        function showMainMenu() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('mainMenuSection').classList.add('active');
+            
+            document.getElementById('userName').textContent = userData.firstName + ' ' + userData.lastName;
+            document.getElementById('userCompetition').textContent = userData.competition;
+            document.getElementById('userPoints').textContent = userData.points;
+            
+            document.getElementById('profileName').textContent = userData.firstName;
+            document.getElementById('profileLastName').textContent = userData.lastName;
+            document.getElementById('profilePhone').textContent = userData.phone;
+            document.getElementById('profileId').textContent = userData.id;
+            document.getElementById('profileCompetition').textContent = userData.competition;
+            document.getElementById('profilePoints').textContent = userData.points;
+            
+            document.getElementById('statsPoints').textContent = userData.points;
+            document.getElementById('statsWorks').textContent = userData.works?.length || 0;
+        }
+        
+        function submitWork() {
+            const title = document.getElementById('workTitle').value.trim();
+            const description = document.getElementById('workDescription').value.trim();
+            
+            if (!title || !description) {
+                tg.showAlert('Iltimos, barcha maydonlarni to\'ldiring!');
+                return;
+            }
+            
+            const work = {
+                id: Date.now(),
+                title: title,
+                description: description,
+                date: new Date().toLocaleDateString('uz-UZ'),
+                status: 'pending',
+                grade: null
+            };
+            
+            if (!userData.works) userData.works = [];
+            userData.works.push(work);
+            localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
+            
+            tg.showAlert('✅ Ish muvaffaqiyatli yuborildi! Admin tekshiradi.');
+            
+            document.getElementById('workTitle').value = '';
+            document.getElementById('workDescription').value = '';
+            document.getElementById('workFile').value = '';
+            
+            loadPortfolio();
+        }
+        
+        function loadPortfolio() {
+            const list = document.getElementById('portfolioList');
+            if (!userData.works || userData.works.length === 0) {
+                list.innerHTML = '<p style="text-align: center; opacity: 0.6;">Hali ishlar yuborilmagan</p>';
+                return;
+            }
+            
+            list.innerHTML = userData.works.map(work => `
+                <div class="portfolio-item">
+                    <h3>${work.title}</h3>
+                    <p>${work.description}</p>
+                    <small style="opacity: 0.6;">${work.date}</small><br>
+                    ${work.grade ? 
+                        `<span class="portfolio-grade">Baho: ${work.grade}/5</span>` : 
+                        `<span class="portfolio-grade pending">Kutilmoqda</span>`
+                    }
+                </div>
+            `).join('');
+        }
+        
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            if (sectionId === 'portfolioSection') {
+                loadPortfolio();
+            }
+            
             tg.HapticFeedback.impactOccurred('light');
         }
         
         function backToMenu() {
-            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            document.getElementById('mainMenu').style.display = 'block';
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('mainMenuSection').classList.add('active');
             tg.HapticFeedback.impactOccurred('light');
         }
-        
-        // MainButton sozlash
-        tg.MainButton.setText("YAKUNLASH");
-        tg.MainButton.onClick(function() {
-            tg.close();
-        });
     </script>
 </body>
 </html>

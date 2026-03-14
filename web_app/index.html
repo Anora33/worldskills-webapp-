@@ -288,13 +288,51 @@
         }
         .direction-item i { font-size: 28px; margin-bottom: 8px; color: #667eea; }
         .direction-item span { font-size: 13px; font-weight: 600; }
+        
+        /* 🌍 Language Selector */
+        .lang-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .lang-btn {
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .lang-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header with Language Selector -->
         <div class="header">
             <h1 id="headerTitle">🏆 WorldSkills Uzbekistan</h1>
             <p id="headerSubtitle">Professional Bot</p>
+            
+            <!-- 🌍 Language Selector -->
+            <div class="lang-selector">
+                <button class="lang-btn" onclick="changeLanguage('uz')" id="langUz">🇺🇿 UZ</button>
+                <button class="lang-btn" onclick="changeLanguage('ru')" id="langRu">🇷🇺 RU</button>
+                <button class="lang-btn" onclick="changeLanguage('en')" id="langEn">🇬🇧 EN</button>
+            </div>
         </div>
         
         <div id="loading" class="loading">
@@ -738,9 +776,25 @@
             language: 'uz'
         };
         
+        // 🌍 Change Language Function
+        function changeLanguage(lang) {
+            currentLang = lang;
+            userData.language = lang;
+            localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('lang' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+            
+            // Apply translations
+            applyTranslations(lang);
+            
+            // Haptic feedback
+            tg.HapticFeedback.impactOccurred('light');
+        }
+        
         // Apply translations
         function applyTranslations(lang) {
-            currentLang = lang;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
@@ -761,16 +815,17 @@
         window.onload = function() {
             console.log('Page loaded');
             
-            // Get language from Telegram or localStorage
-            const tgLang = tg.initDataUnsafe?.user?.language_code || 'uz';
+            // Get language from localStorage or default to 'uz'
             const saved = localStorage.getItem('worldskills_user_' + userData.id);
             
             if (saved) {
                 userData = JSON.parse(saved);
-                currentLang = userData.language || tgLang;
-            } else {
-                currentLang = tgLang;
+                currentLang = userData.language || 'uz';
             }
+            
+            // Set active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('lang' + currentLang.charAt(0).toUpperCase() + currentLang.slice(1)).classList.add('active');
             
             applyTranslations(currentLang);
             
@@ -795,20 +850,44 @@
             const phone = document.getElementById('phone').value.trim();
             const competition = document.getElementById('competition').value;
             
+            const alerts = {
+                uz: {
+                    name: 'Iltimos, ismingizni to\'g\'ri kiriting!',
+                    lastName: 'Iltimos, familiyangizni to\'g\'ri kiriting!',
+                    phone: 'Iltimos, telefon raqamingizni to\'g\'ri kiriting!',
+                    competition: 'Iltimos, yo\'nalishni tanlang!',
+                    success: '✅ Tabriklaymiz! Ro\'yxatdan o\'tdingiz!\n\n+10 ball qo\'shildi!'
+                },
+                ru: {
+                    name: 'Пожалуйста, введите правильное имя!',
+                    lastName: 'Пожалуйста, введите правильную фамилию!',
+                    phone: 'Пожалуйста, введите правильный номер телефона!',
+                    competition: 'Пожалуйста, выберите направление!',
+                    success: '✅ Поздравляем! Вы зарегистрированы!\n\n+10 баллов добавлено!'
+                },
+                en: {
+                    name: 'Please enter your name correctly!',
+                    lastName: 'Please enter your last name correctly!',
+                    phone: 'Please enter your phone number correctly!',
+                    competition: 'Please select a competition!',
+                    success: '✅ Congratulations! You are registered!\n\n+10 points added!'
+                }
+            };
+            
             if (!firstName || firstName.length < 2) {
-                tg.showAlert(currentLang === 'uz' ? 'Iltimos, ismingizni to\'g\'ri kiriting!' : (currentLang === 'ru' ? 'Пожалуйста, введите правильное имя!' : 'Please enter your name correctly!'));
+                tg.showAlert(alerts[currentLang].name);
                 return;
             }
             if (!lastName || lastName.length < 2) {
-                tg.showAlert(currentLang === 'uz' ? 'Iltimos, familiyangizni to\'g\'ri kiriting!' : (currentLang === 'ru' ? 'Пожалуйста, введите правильную фамилию!' : 'Please enter your last name correctly!'));
+                tg.showAlert(alerts[currentLang].lastName);
                 return;
             }
             if (!phone || phone.length < 9) {
-                tg.showAlert(currentLang === 'uz' ? 'Iltimos, telefon raqamingizni to\'g\'ri kiriting!' : (currentLang === 'ru' ? 'Пожалуйста, введите правильный номер телефона!' : 'Please enter your phone number correctly!'));
+                tg.showAlert(alerts[currentLang].phone);
                 return;
             }
             if (!competition) {
-                tg.showAlert(currentLang === 'uz' ? 'Iltimos, yo\'nalishni tanlang!' : (currentLang === 'ru' ? 'Пожалуйста, выберите направление!' : 'Please select a competition!'));
+                tg.showAlert(alerts[currentLang].competition);
                 return;
             }
             
@@ -837,8 +916,7 @@
             
             setTimeout(() => {
                 tg.showProgress(false);
-                const successMsg = currentLang === 'uz' ? '✅ Tabriklaymiz! Ro\'yxatdan o\'tdingiz!\n\n+10 ball qo\'shildi!' : (currentLang === 'ru' ? '✅ Поздравляем! Вы зарегистрированы!\n\n+10 баллов добавлено!' : '✅ Congratulations! You are registered!\n\n+10 points added!');
-                tg.showAlert(successMsg);
+                tg.showAlert(alerts[currentLang].success);
                 showMainMenu();
             }, 1000);
         }
@@ -863,9 +941,14 @@
             const title = document.getElementById('workTitle').value.trim();
             const description = document.getElementById('workDescription').value.trim();
             
+            const alerts = {
+                uz: 'Iltimos, barcha maydonlarni to\'ldiring!',
+                ru: 'Пожалуйста, заполните все поля!',
+                en: 'Please fill in all fields!'
+            };
+            
             if (!title || !description) {
-                const alertMsg = currentLang === 'uz' ? 'Iltimos, barcha maydonlarni to\'ldiring!' : (currentLang === 'ru' ? 'Пожалуйста, заполните все поля!' : 'Please fill in all fields!');
-                tg.showAlert(alertMsg);
+                tg.showAlert(alerts[currentLang]);
                 return;
             }
             
@@ -896,10 +979,15 @@
             userData.works.push(work);
             localStorage.setItem('worldskills_user_' + userData.id, JSON.stringify(userData));
             
+            const successMsg = {
+                uz: '✅ Ish muvaffaqiyatli yuborildi!\n\nAdmin tekshiradi.',
+                ru: '✅ Работа успешно отправлена!\n\nАдмин проверит.',
+                en: '✅ Work submitted successfully!\n\nAdmin will review.'
+            };
+            
             setTimeout(() => {
                 tg.showProgress(false);
-                const successMsg = currentLang === 'uz' ? '✅ Ish muvaffaqiyatli yuborildi!\n\nAdmin tekshiradi.' : (currentLang === 'ru' ? '✅ Работа успешно отправлена!\n\nАдмин проверит.' : '✅ Work submitted successfully!\n\nAdmin will review.');
-                tg.showAlert(successMsg);
+                tg.showAlert(successMsg[currentLang]);
                 document.getElementById('workTitle').value = '';
                 document.getElementById('workDescription').value = '';
                 document.getElementById('workFile').value = '';
@@ -910,20 +998,32 @@
         function loadPortfolio() {
             const list = document.getElementById('portfolioList');
             if (!userData.works || userData.works.length === 0) {
-                const noWorksText = currentLang === 'uz' ? 'Hali ishlar yuborilmagan' : (currentLang === 'ru' ? 'Работы еще не отправлены' : 'No works submitted yet');
-                list.innerHTML = '<p style="text-align: center; opacity: 0.6; padding: 20px;"><i class="fas fa-inbox" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>' + noWorksText + '</p>';
+                const noWorksText = {
+                    uz: 'Hali ishlar yuborilmagan',
+                    ru: 'Работы еще не отправлены',
+                    en: 'No works submitted yet'
+                };
+                list.innerHTML = '<p style="text-align: center; opacity: 0.6; padding: 20px;"><i class="fas fa-inbox" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>' + noWorksText[currentLang] + '</p>';
                 return;
             }
-            const pendingText = currentLang === 'uz' ? 'Kutilmoqda' : (currentLang === 'ru' ? 'Ожидается' : 'Pending');
-            const gradeText = currentLang === 'uz' ? 'Baho' : (currentLang === 'ru' ? 'Оценка' : 'Grade');
+            const pendingText = {
+                uz: 'Kutilmoqda',
+                ru: 'Ожидается',
+                en: 'Pending'
+            };
+            const gradeText = {
+                uz: 'Baho',
+                ru: 'Оценка',
+                en: 'Grade'
+            };
             list.innerHTML = userData.works.map(work => `
                 <div class="portfolio-item">
                     <h3><i class="fas fa-file-alt"></i> ${work.title}</h3>
                     <p>${work.description}</p>
                     <small style="opacity: 0.6;"><i class="fas fa-clock"></i> ${work.date}</small><br>
                     ${work.grade ? 
-                        `<span class="portfolio-grade"><i class="fas fa-star"></i> ${gradeText}: ${work.grade}/5</span>` : 
-                        `<span class="portfolio-grade pending"><i class="fas fa-hourglass-half"></i> ${pendingText}</span>`
+                        `<span class="portfolio-grade"><i class="fas fa-star"></i> ${gradeText[currentLang]}: ${work.grade}/5</span>` : 
+                        `<span class="portfolio-grade pending"><i class="fas fa-hourglass-half"></i> ${pendingText[currentLang]}</span>`
                     }
                 </div>
             `).join('');
